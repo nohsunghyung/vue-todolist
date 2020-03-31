@@ -14,6 +14,7 @@ export default new Vuex.Store({
 			const todoObj = {
 				text: payload,
 				complete: false,
+				toggle: true,
 			};
 			state.todoArray.push(todoObj);
 			localStorage.setItem(state.todoKey, JSON.stringify(state.todoArray));
@@ -41,11 +42,11 @@ export default new Vuex.Store({
 				state.todoArray = [];
 			}
 		},
-		complteToggle(state) {
-			const completeTodo = state.todoArray.filter(function(arr) {
-				return arr.complete == false;
-			});
-			console.log(completeTodo);
-		},
+		// complteToggle(state) {
+		// 	const completeTodo = state.todoArray.filter(function(arr) {
+		// 		return arr.complete == false;
+		// 	});
+		// 	console.log(completeTodo);
+		// },
 	},
 });

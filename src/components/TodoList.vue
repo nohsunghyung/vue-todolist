@@ -1,7 +1,11 @@
 <template>
 	<ul class="todo-container">
 		<template v-for="(item, index) in todoArray">
-			<li class="item" :key="index" :class="{ complete: item.complete }">
+			<li
+				class="item"
+				:key="index"
+				:class="{ complete: item.complete, active: item.complete && flag }"
+			>
 				<span class="todo-list">{{ item.text }}</span>
 				<div class="btn-group">
 					<button type="button" @click="completeChk(item)">완료</button>
@@ -9,7 +13,7 @@
 				</div>
 			</li>
 		</template>
-		<button type="button" @click="complteToggle">전체삭제</button>
+		<button type="button" @click="flagChange">완료필터</button>
 	</ul>
 </template>
 
@@ -17,7 +21,7 @@
 export default {
 	data() {
 		return {
-			toggleFn: true,
+			flag: false,
 		};
 	},
 	computed: {
@@ -36,8 +40,8 @@ export default {
 			item.complete = !item.complete;
 			this.$store.commit('setTodoItem');
 		},
-		complteToggle() {
-			this.$store.commit('complteToggle');
+		flagChange() {
+			this.flag = !this.flag;
 		},
 	},
 	created() {
@@ -60,6 +64,9 @@ export default {
 		}
 		&.complete {
 			text-decoration: line-through;
+		}
+		&.active {
+			display: none;
 		}
 	}
 }
