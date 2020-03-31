@@ -1,0 +1,30 @@
+.btn {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 15px;
+  border: 0;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+  &.success {
+    background-color: #5BC0DE;
+  }
+  &.danger {
+    background-color: #D9534F;
+  }
+  &.normal {
+    border: 1px solid #000;
+    background-color: transparent;
+    color: #222;
+  }
+}
+input[type="text"] {
+  height: 50px;
+  line-height: 50px;
+  padding: 0 20px;
+  font-size: 18px;
+  color: #222;
+  background-color: #fff;
+}

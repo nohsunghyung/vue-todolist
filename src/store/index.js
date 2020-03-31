@@ -7,6 +7,7 @@ export default new Vuex.Store({
 	state: {
 		todoKey: 'TODOLIST',
 		todoArray: [],
+		fetchTodoArr: [],
 	},
 	mutations: {
 		addTodoItem(state, payload) {
@@ -17,12 +18,34 @@ export default new Vuex.Store({
 			state.todoArray.push(todoObj);
 			localStorage.setItem(state.todoKey, JSON.stringify(state.todoArray));
 		},
+		setTodoItem(state) {
+			localStorage.setItem(state.todoKey, JSON.stringify(state.todoArray));
+		},
 		loadTodo(state) {
-			// const fetchTodoArr = [];
 			const fetchTodo = JSON.parse(localStorage.getItem(state.todoKey));
-			console.log(fetchTodo);
-			// loadTodoArr.forEach(function(element) {
-			// });
+			if (fetchTodo !== null) {
+				fetchTodo.forEach(element => {
+					state.fetchTodoArr.push(element);
+				});
+			}
+			state.todoArray = state.fetchTodoArr;
+		},
+		deleteTodo(state, index) {
+			state.todoArray.splice(index, 1);
+			localStorage.setItem(state.todoKey, JSON.stringify(state.todoArray));
+		},
+		allDeleteTodo(state) {
+			const chk = confirm('전체 삭제 하시겠습니까?');
+			if (chk) {
+				localStorage.clear();
+				state.todoArray = [];
+			}
+		},
+		complteToggle(state) {
+			const completeTodo = state.todoArray.filter(function(arr) {
+				return arr.complete == false;
+			});
+			console.log(completeTodo);
 		},
 	},
 });

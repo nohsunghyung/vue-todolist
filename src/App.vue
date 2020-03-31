@@ -1,46 +1,36 @@
 <template>
 	<div id="app">
-		<form @submit.prevent="submitForm">
-			<input type="text" placeholder="할일입력" v-model="todoText" />
-			<button type="submit">입력</button>
-		</form>
-		<ul class="todo-container">
-			<li class="item" v-for="(item,index) in todoArray" :key="index">
-				<span class="todo-list">{{item.text}}</span>
-				<button type="button">삭제</button>
-			</li>
-		</ul>
+		<div class="content">
+			<div class="content-wrapper">
+				<Todo-header></Todo-header>
+				<Todo-input></Todo-input>
+				<Todo-list></Todo-list>
+				<Todo-footer></Todo-footer>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
+import TodoHeader from '@/components/TodoHeader.vue';
+import TodoInput from '@/components/TodoInput.vue';
+import TodoList from '@/components/TodoList.vue';
+import TodoFooter from '@/components/TodoFooter.vue';
 export default {
-	data() {
-		return {
-			todoText: '',
-		};
-  },
-  computed: {
-    todoArray(){
-      return this.$store.state.todoArray;
-    }
-  },
-	methods: {
-		submitForm() {
-      this.$store.commit('addTodoItem',this.todoText);
-			this.initForm();
-		},
-		initForm() {
-			this.todoText = '';
-    },
-    loadTodo(){
-      
-    }
-  },
-  created () {
-    this.$store.commit('loadTodo')
-  },
+	components: {
+		TodoHeader,
+		TodoInput,
+		TodoList,
+		TodoFooter,
+	},
 };
 </script>
 
-<style></style>
+<style lang="scss">
+@import './assets/css/reset.css';
+@import './assets/css/common.scss';
+.content {
+	width: 600px;
+	margin: 100px auto;
+}
+</style>
