@@ -5,9 +5,9 @@
 			<button type="submit">입력</button>
 		</form>
 		<ul class="todo-container">
-			<li v-for="(item, index) in todoArray" :key="index" class="item">
-				<span class="todo-list">{{ item.text }}</span>
-				<button type="button" @click="removeTodoItem(index)">삭제</button>
+			<li class="item" v-for="(item,index) in todoArray" :key="index">
+				<span class="todo-list">{{item.text}}</span>
+				<button type="button">삭제</button>
 			</li>
 		</ul>
 	</div>
@@ -18,38 +18,28 @@ export default {
 	data() {
 		return {
 			todoText: '',
-			todoArray: [],
 		};
-	},
+  },
+  computed: {
+    todoArray(){
+      return this.$store.state.todoArray;
+    }
+  },
 	methods: {
-		fetchTodo() {
-			const arr = [];
-			for (let i = 0; i < localStorage.length; i++) {
-				console.log(localStorage.key(i));
-			}
-		},
 		submitForm() {
-			const todoObj = {
-				text: this.todoText,
-				complete: false,
-			};
-			this.todoArray.push(todoObj);
-			this.saveTodo(todoObj.text, JSON.stringify(todoObj));
+      this.$store.commit('addTodoItem',this.todoText);
 			this.initForm();
 		},
 		initForm() {
 			this.todoText = '';
-		},
-		removeTodoItem(index) {
-			this.todoArray.splice(index, 1);
-		},
-		saveTodo(name, todo) {
-			localStorage.setItem(name, todo);
-		},
-	},
-	created() {
-		// this.fetchTodo();
-	},
+    },
+    loadTodo(){
+      
+    }
+  },
+  created () {
+    this.$store.commit('loadTodo')
+  },
 };
 </script>
 
