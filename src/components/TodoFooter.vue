@@ -3,11 +3,11 @@
 		<div class="btn-group">
 			<button
 				type="button"
-				@click="completeToggle"
+				@click="fiterComplete"
 				v-show="btnStatus"
 				class="btn normal"
 			>
-				완료목록제외
+				{{ ddd ? '완료목록제외' : '완료목록보기' }}
 			</button>
 			<button
 				type="button"
@@ -22,19 +22,21 @@
 </template>
 
 <script>
-import bus from '@/utils/bus';
 export default {
 	methods: {
 		allDeleteTodo() {
 			this.$store.commit('allDeleteTodo');
 		},
-		completeToggle() {
-			bus.$emit('completeToggle');
+		fiterComplete() {
+			this.$store.commit('fiterComplete');
 		},
 	},
 	computed: {
 		btnStatus() {
 			return this.$store.state.todoArray.length;
+		},
+		ddd() {
+			return this.$store.state.completeStatus;
 		},
 	},
 };

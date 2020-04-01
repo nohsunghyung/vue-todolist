@@ -4,25 +4,27 @@
 			<li
 				class="item"
 				:key="index"
-				:class="{ complete: item.complete, active: item.complete && flag }"
+				:class="{
+					complete: item.complete,
+					active: item.complete && item.toggle,
+				}"
 			>
 				<span class="todo-list">{{ item.text }}</span>
 				<div class="btn-group">
-					<button type="button" @click="completeChk(item)">완료</button>
+					<button type="button" @click="completeChk(item)">
+						{{ !item.complete ? '완료' : '완료해제' }}
+					</button>
 					<button type="button" @click="deleteTodo(index)">삭제</button>
 				</div>
 			</li>
 		</template>
-		<button type="button" @click="flagChange">완료필터</button>
 	</ul>
 </template>
 
 <script>
 export default {
 	data() {
-		return {
-			flag: false,
-		};
+		return {};
 	},
 	computed: {
 		todoArray() {
@@ -40,12 +42,10 @@ export default {
 			item.complete = !item.complete;
 			this.$store.commit('setTodoItem');
 		},
-		flagChange() {
-			this.flag = !this.flag;
-		},
 	},
 	created() {
 		this.loadTodo();
+		this.$store.commit('fiterComplete');
 	},
 };
 </script>
