@@ -2,6 +2,8 @@
 
 > Vue를 이용한 Todo리스트입니다.
 
+<img src="./images/todo.gif" width="100%;" height="500px;">
+
 
 ## 설치방법
 
