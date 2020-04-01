@@ -1,30 +1,35 @@
 <template>
 	<ul class="todo-container">
-		<template v-for="(item, index) in todoArray">
-			<li
-				class="item"
-				:key="index"
-				:class="{
-					complete: item.complete,
-					active: item.complete && item.toggle,
-				}"
-			>
-				<span class="todo-list">{{ item.text }}</span>
-				<div class="btn-group">
-					<button type="button" @click="completeChk(item)">
-						{{ !item.complete ? '완료' : '완료해제' }}
-					</button>
-					<button type="button" @click="deleteTodo(index)">삭제</button>
-				</div>
-			</li>
-		</template>
+		<transition-group name="slide-fade">
+			<template v-for="(item, index) in todoArray">
+				<li
+					class="item"
+					:key="index"
+					:class="{
+						complete: item.complete,
+						active: item.complete && item.toggle,
+					}"
+				>
+					<span class="todo-list">{{ item.text }}</span>
+					<div class="btn-group">
+						<button type="button" @click="completeChk(item)">
+							<font-awesome-icon :icon="['far', 'check-circle']" />
+						</button>
+						<button type="button" @click="deleteTodo(index)">
+							<font-awesome-icon :icon="['far', 'trash-alt']" />
+						</button>
+					</div>
+				</li>
+			</template>
+		</transition-group>
 	</ul>
 </template>
 
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 export default {
-	data() {
-		return {};
+	components: {
+		FontAwesomeIcon,
 	},
 	computed: {
 		todoArray() {
@@ -54,6 +59,7 @@ export default {
 .todo-container {
 	margin-top: 20px;
 	.item {
+		transition: 0.3s;
 		display: flex;
 		padding: 20px;
 		position: relative;
@@ -92,5 +98,19 @@ export default {
 			background-color: #fff;
 		}
 	}
+}
+.svg-inline--fa {
+	font-size: 20px;
+}
+.slide-fade-enter-active {
+	transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+	transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+	transform: translateX(20px);
+	opacity: 0;
 }
 </style>
