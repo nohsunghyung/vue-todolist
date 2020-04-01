@@ -50,7 +50,9 @@ export default {
 	},
 	created() {
 		this.loadTodo();
-		this.$store.commit('completeFiter');
+		const flag = localStorage.getItem(this.$store.state.todoStatus);
+		console.log(flag);
+		this.$store.commit('completeFiter', flag);
 	},
 };
 </script>
@@ -110,7 +112,6 @@ export default {
 }
 .slide-fade-enter,
 .slide-fade-leave-to {
-	transform: translateX(20px);
 	opacity: 0;
 }
 </style>

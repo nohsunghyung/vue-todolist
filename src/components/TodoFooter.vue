@@ -3,7 +3,7 @@
 		<div class="btn-group">
 			<button
 				type="button"
-				@click="completeView"
+				@click="completeFiter(false)"
 				v-show="btnStatus"
 				class="btn normal"
 			>
@@ -11,7 +11,7 @@
 			</button>
 			<button
 				type="button"
-				@click="completeFiter"
+				@click="completeFiter(true)"
 				v-show="btnStatus"
 				class="btn normal"
 			>
@@ -35,11 +35,8 @@ export default {
 		allDeleteTodo() {
 			this.$store.commit('allDeleteTodo');
 		},
-		completeFiter() {
-			this.$store.commit('completeFiter');
-		},
-		completeView() {
-			this.$store.commit('completeView');
+		completeFiter(bool) {
+			this.$store.commit('completeFiter', bool);
 		},
 	},
 	computed: {

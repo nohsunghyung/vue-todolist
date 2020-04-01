@@ -6,9 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		todoKey: 'TODOLIST',
+		todoStatus: 'TODOSTATUS',
 		todoArray: [],
 		fetchTodoArr: [],
-		completeStatus: false,
 	},
 	mutations: {
 		addTodoItem(state, payload) {
@@ -43,21 +43,15 @@ export default new Vuex.Store({
 				state.todoArray = [];
 			}
 		},
-		completeFiter(state) {
+		completeFiter(state, bool) {
 			const fiterTodo = state.todoArray.filter(function(arr) {
 				return arr.complete == true;
 			});
 			for (let item in fiterTodo) {
-				fiterTodo[item].toggle = true;
+				fiterTodo[item].toggle = bool;
 			}
-		},
-		completeView(state) {
-			const fiterTodo = state.todoArray.filter(function(arr) {
-				return arr.complete == true;
-			});
-			for (let item in fiterTodo) {
-				fiterTodo[item].toggle = false;
-			}
+			console.log(bool);
+			localStorage.setItem(state.todoStatus, JSON.parse(bool));
 		},
 	},
 });
