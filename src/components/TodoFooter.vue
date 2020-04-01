@@ -3,15 +3,23 @@
 		<div class="btn-group">
 			<button
 				type="button"
-				@click="fiterComplete"
+				@click="completeView"
 				v-show="btnStatus"
 				class="btn normal"
 			>
-				{{ ddd ? '완료목록제외' : '완료목록보기' }}
+				완료목록보기
 			</button>
 			<button
 				type="button"
-				@click="allDeleteTodo()"
+				@click="completeFiter"
+				v-show="btnStatus"
+				class="btn normal"
+			>
+				완료목록제외
+			</button>
+			<button
+				type="button"
+				@click="allDeleteTodo"
 				v-show="btnStatus"
 				class="btn danger"
 			>
@@ -27,16 +35,16 @@ export default {
 		allDeleteTodo() {
 			this.$store.commit('allDeleteTodo');
 		},
-		fiterComplete() {
-			this.$store.commit('fiterComplete');
+		completeFiter() {
+			this.$store.commit('completeFiter');
+		},
+		completeView() {
+			this.$store.commit('completeView');
 		},
 	},
 	computed: {
 		btnStatus() {
 			return this.$store.state.todoArray.length;
-		},
-		ddd() {
-			return this.$store.state.completeStatus;
 		},
 	},
 };

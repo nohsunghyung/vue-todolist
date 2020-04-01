@@ -43,14 +43,20 @@ export default new Vuex.Store({
 				state.todoArray = [];
 			}
 		},
-		fiterComplete(state) {
+		completeFiter(state) {
 			const fiterTodo = state.todoArray.filter(function(arr) {
 				return arr.complete == true;
 			});
 			for (let item in fiterTodo) {
-				fiterTodo[item].toggle = !fiterTodo[item].toggle;
-				state.completeStatus = !state.completeStatus;
-				return false;
+				fiterTodo[item].toggle = true;
+			}
+		},
+		completeView(state) {
+			const fiterTodo = state.todoArray.filter(function(arr) {
+				return arr.complete == true;
+			});
+			for (let item in fiterTodo) {
+				fiterTodo[item].toggle = false;
 			}
 		},
 	},

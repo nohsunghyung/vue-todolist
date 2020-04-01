@@ -45,7 +45,7 @@ export default {
 	},
 	created() {
 		this.loadTodo();
-		this.$store.commit('fiterComplete');
+		this.$store.commit('completeFiter');
 	},
 };
 </script>
@@ -56,6 +56,7 @@ export default {
 	.item {
 		display: flex;
 		padding: 20px;
+		position: relative;
 		box-shadow: 1px 1px 10px 1px #ddd;
 		border-radius: 5px;
 		background-color: #fff;
@@ -64,9 +65,31 @@ export default {
 		}
 		&.complete {
 			text-decoration: line-through;
+			color: #999;
+			.todo-list {
+				color: #999;
+			}
 		}
 		&.active {
 			display: none;
+		}
+	}
+	.todo-list {
+		padding-right: 100px;
+		font-weight: bold;
+		font-size: 18px;
+		color: #000;
+	}
+	.btn-group {
+		position: absolute;
+		top: 18px;
+		right: 20px;
+		button {
+			display: inline-block;
+			vertical-align: middle;
+			border: 0;
+			font-size: 14px;
+			background-color: #fff;
 		}
 	}
 }
