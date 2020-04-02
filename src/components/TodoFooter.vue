@@ -3,19 +3,11 @@
 		<div class="btn-group">
 			<button
 				type="button"
-				@click="completeFiter(false)"
+				@click="completeFiter((bool = !bool))"
 				v-show="btnStatus"
 				class="btn normal"
 			>
-				완료목록보기
-			</button>
-			<button
-				type="button"
-				@click="completeFiter(true)"
-				v-show="btnStatus"
-				class="btn normal"
-			>
-				완료목록제외
+				{{ textFlag == true ? '완료목록보기' : '완료목록제외' }}
 			</button>
 			<button
 				type="button"
@@ -31,12 +23,25 @@
 
 <script>
 export default {
+	data() {
+		return {
+			bool: this.boolChk(),
+			textFlag: this.boolChk(),
+		};
+	},
 	methods: {
 		allDeleteTodo() {
 			this.$store.commit('allDeleteTodo');
 		},
 		completeFiter(bool) {
 			this.$store.commit('completeFiter', bool);
+			this.$store.commit('setTodoItem');
+			this.textFlag = !this.textFlag;
+		},
+		boolChk() {
+			const strBool = localStorage.getItem(this.$store.state.todoStatus);
+			const boolean = strBool == 'true';
+			return boolean;
 		},
 	},
 	computed: {

@@ -5,8 +5,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		todoKey: 'TODOLIST',
-		todoStatus: 'TODOSTATUS',
+		todoKey: 'TODO_LIST',
+		todoStatus: 'TODO_STATUS',
+		completeStatus: 'COMPLETE_STATUS',
+		completeFlag: false,
 		todoArray: [],
 		fetchTodoArr: [],
 	},
@@ -21,6 +23,12 @@ export default new Vuex.Store({
 			localStorage.setItem(state.todoKey, JSON.stringify(state.todoArray));
 		},
 		setTodoItem(state) {
+			state.todoArray.forEach(function(arr) {
+				if (arr.complete == true) {
+					console.log(11);
+				}
+			});
+			// console.log(filter);
 			localStorage.setItem(state.todoKey, JSON.stringify(state.todoArray));
 		},
 		loadTodo(state) {
@@ -47,11 +55,12 @@ export default new Vuex.Store({
 			const fiterTodo = state.todoArray.filter(function(arr) {
 				return arr.complete == true;
 			});
-			for (let item in fiterTodo) {
-				fiterTodo[item].toggle = bool;
+			if (fiterTodo.length) {
+				for (let item in fiterTodo) {
+					fiterTodo[item].toggle = bool;
+				}
+				localStorage.setItem(state.todoStatus, JSON.parse(bool));
 			}
-			console.log(bool);
-			localStorage.setItem(state.todoStatus, JSON.parse(bool));
 		},
 	},
 });

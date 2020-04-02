@@ -1,27 +1,26 @@
 <template>
 	<ul class="todo-container">
-		<transition-group name="slide-fade">
-			<template v-for="(item, index) in todoArray">
-				<li
-					class="item"
-					:key="index"
-					:class="{
-						complete: item.complete,
-						active: item.complete && item.toggle,
-					}"
-				>
-					<span class="todo-list">{{ item.text }}</span>
-					<div class="btn-group">
-						<button type="button" @click="completeChk(item)">
-							<font-awesome-icon :icon="['far', 'check-circle']" />
-						</button>
-						<button type="button" @click="deleteTodo(index)">
-							<font-awesome-icon :icon="['far', 'trash-alt']" />
-						</button>
-					</div>
-				</li>
-			</template>
-		</transition-group>
+		<template v-for="(item, index) in todoArray">
+			<li
+				class="item"
+				:key="index"
+				:class="{
+					complete: item.complete,
+					active: item.complete && item.toggle,
+				}"
+			>
+				<span class="todo-list">{{ item.text }}</span>
+				<div class="btn-group">
+					<button type="button" @click="completeChk(item)">
+						<font-awesome-icon :icon="['far', 'check-circle']" />
+					</button>
+					<button type="button" @click="deleteTodo(index)">
+						<font-awesome-icon :icon="['far', 'trash-alt']" />
+					</button>
+				</div>
+			</li>
+		</template>
+		<transition-group name="fade"> </transition-group>
 	</ul>
 </template>
 
@@ -50,9 +49,6 @@ export default {
 	},
 	created() {
 		this.loadTodo();
-		const flag = localStorage.getItem(this.$store.state.todoStatus);
-		console.log(flag);
-		this.$store.commit('completeFiter', flag);
 	},
 };
 </script>
@@ -103,15 +99,5 @@ export default {
 }
 .svg-inline--fa {
 	font-size: 20px;
-}
-.slide-fade-enter-active {
-	transition: all 0.3s ease;
-}
-.slide-fade-leave-active {
-	transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.slide-fade-enter,
-.slide-fade-leave-to {
-	opacity: 0;
 }
 </style>
