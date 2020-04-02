@@ -43,6 +43,8 @@ export default {
 .todo-input {
 	float: left;
 	width: 500px;
+	border: 1px solid #ddd;
+	border-right: 0;
 }
 .btn-submit {
 	float: left;
@@ -50,5 +52,6 @@ export default {
 	height: 50px;
 	line-height: 50px;
 	font-size: 18px;
+	border-radius: 0;
 }
 </style>
