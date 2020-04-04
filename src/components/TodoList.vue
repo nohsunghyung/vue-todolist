@@ -32,7 +32,7 @@ export default {
 	},
 	computed: {
 		todoArray() {
-			return this.$store.state.todoArray;
+			return this.$store.getters.filterSearch;
 		},
 	},
 	methods: {

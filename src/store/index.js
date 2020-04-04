@@ -11,6 +11,14 @@ export default new Vuex.Store({
 		todoArray: [],
 		fetchTodoArr: [],
 		btnFlag: false,
+		filterMsg: '',
+	},
+	getters: {
+		filterSearch(state) {
+			return state.todoArray.filter(arr => {
+				return arr.text.includes(state.filterMsg);
+			});
+		},
 	},
 	mutations: {
 		addTodoItem(state, payload) {
@@ -62,6 +70,9 @@ export default new Vuex.Store({
 		},
 		btnFlagFn(state, bool) {
 			state.btnFlag = bool;
+		},
+		searchFilter(state, text) {
+			state.filterMsg = text;
 		},
 	},
 });
