@@ -4,8 +4,8 @@
 			<button
 				type="button"
 				@click="completeFiter((bool = !bool))"
-				v-show="btnStatus"
 				class="btn normal"
+				v-if="btnStatus && btnFlag"
 			>
 				{{ textFlag == true ? '완료목록보기' : '완료목록제외' }}
 			</button>
@@ -25,29 +25,46 @@
 export default {
 	data() {
 		return {
-			bool: this.boolChk(),
-			textFlag: this.boolChk(),
+			bool: this.boolChk(this.$store.state.todoStatus),
+			textFlag: this.boolChk(this.$store.state.todoStatus),
 		};
+	},
+	computed: {
+		btnStatus() {
+			return this.$store.state.todoArray.length;
+		},
+		btnFlag() {
+			return this.$store.state.btnFlag;
+		},
 	},
 	methods: {
 		allDeleteTodo() {
 			this.$store.commit('allDeleteTodo');
+			this.bool = false;
+			this.textFlag = false;
 		},
 		completeFiter(bool) {
 			this.$store.commit('completeFiter', bool);
 			this.$store.commit('setTodoItem');
 			this.textFlag = !this.textFlag;
 		},
-		boolChk() {
-			const strBool = localStorage.getItem(this.$store.state.todoStatus);
-			const boolean = strBool == 'true';
-			return boolean;
+		boolChk(name) {
+			const strBool = JSON.parse(localStorage.getItem(name));
+			let bool;
+			if (strBool !== null) {
+				strBool == true ? (bool = true) : (bool = false);
+			} else {
+				bool = false;
+			}
+			return bool;
+		},
+		btnToggle() {
+			let bool = this.boolChk(this.$store.state.completeStatus);
+			this.$store.commit('btnFlagFn', bool);
 		},
 	},
-	computed: {
-		btnStatus() {
-			return this.$store.state.todoArray.length;
-		},
+	created() {
+		this.btnToggle();
 	},
 };
 </script>

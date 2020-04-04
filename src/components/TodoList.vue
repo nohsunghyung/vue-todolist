@@ -45,6 +45,28 @@ export default {
 		completeChk(item) {
 			item.complete = !item.complete;
 			this.$store.commit('setTodoItem');
+			this.completeBtnFn();
+		},
+		completeBtnFn() {
+			let btnFlag;
+			const fetchTodo = JSON.parse(
+				localStorage.getItem(this.$store.state.todoKey),
+			);
+			if (fetchTodo !== null) {
+				const filterTodo = fetchTodo.filter(arr => {
+					return arr.complete == true;
+				});
+				if (filterTodo.length > 0) {
+					btnFlag = true;
+				} else {
+					btnFlag = false;
+				}
+			}
+			localStorage.setItem(
+				this.$store.state.completeStatus,
+				JSON.parse(btnFlag),
+			);
+			this.$store.commit('btnFlagFn', btnFlag);
 		},
 	},
 	created() {

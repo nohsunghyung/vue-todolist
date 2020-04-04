@@ -8,9 +8,9 @@ export default new Vuex.Store({
 		todoKey: 'TODO_LIST',
 		todoStatus: 'TODO_STATUS',
 		completeStatus: 'COMPLETE_STATUS',
-		completeFlag: false,
 		todoArray: [],
 		fetchTodoArr: [],
+		btnFlag: false,
 	},
 	mutations: {
 		addTodoItem(state, payload) {
@@ -23,12 +23,6 @@ export default new Vuex.Store({
 			localStorage.setItem(state.todoKey, JSON.stringify(state.todoArray));
 		},
 		setTodoItem(state) {
-			state.todoArray.forEach(function(arr) {
-				if (arr.complete == true) {
-					console.log(11);
-				}
-			});
-			// console.log(filter);
 			localStorage.setItem(state.todoKey, JSON.stringify(state.todoArray));
 		},
 		loadTodo(state) {
@@ -43,12 +37,16 @@ export default new Vuex.Store({
 		deleteTodo(state, index) {
 			state.todoArray.splice(index, 1);
 			localStorage.setItem(state.todoKey, JSON.stringify(state.todoArray));
+			if (state.todoArray.length === 0) {
+				state.btnFlag = false;
+			}
 		},
 		allDeleteTodo(state) {
 			const chk = confirm('전체 삭제 하시겠습니까?');
 			if (chk) {
 				localStorage.clear();
 				state.todoArray = [];
+				state.btnFlag = false;
 			}
 		},
 		completeFiter(state, bool) {
@@ -61,6 +59,9 @@ export default new Vuex.Store({
 				}
 				localStorage.setItem(state.todoStatus, JSON.parse(bool));
 			}
+		},
+		btnFlagFn(state, bool) {
+			state.btnFlag = bool;
 		},
 	},
 });
