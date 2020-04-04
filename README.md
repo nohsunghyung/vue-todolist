@@ -1,6 +1,6 @@
 # Vue.js Todo리스트
 
-> Vue를 이용한 Todo리스트입니다.
+> 검색필터 기능의 Todo리스트
 
 <img src="./images/todo.gif" width="100%;" height="500px;">
 
